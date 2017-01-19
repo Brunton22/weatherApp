@@ -19,6 +19,7 @@ html, body, .container-fluid, .ng-scope {
 
 .get_weather_btn {
 	float:right;
+	margin-top: 10px;
 }
 
 /*.bg-night {

@@ -9,6 +9,7 @@
 	</div>
 	<div class='container'>
 		<div ng-hide='weather_called'  class='row weather_details'>
+			<div class='weather col-xs-5 sarala'>{{ weather.weather[0]['main'] }}</div>
 			<div class='icon col-xs-4' ng-class='weather_icon'>
 
 				<div ng-show='weather_icon === "01d"' class="icon sunny">
@@ -70,7 +71,6 @@
 			  		<div class="rain"></div>
 				</div>
 			</div>
-			<div class='weather col-xs-9 sarala'>{{ weather.weather[0]['main'] }}</div>
 			<div class='temp col-xs-4 sarala'>{{ rnd_temp }}&deg;C</div>
 			<div class='current_time col-xs-4 sarala'>{{ location_unix_date | date:'HH:mm' }}</div>
 		</div>

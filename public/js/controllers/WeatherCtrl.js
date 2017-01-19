@@ -1,4 +1,4 @@
-angular.module('WeatherCtrl', []).controller('WeatherController', function($scope,Weather) {
+angular.module('WeatherCtrl', []).controller('WeatherController', ['$scope','$interval','Weather', function($scope,$interval,Weather) {
 
 	$scope.get_curr_time = function() {
 		var curr_date = new Date();
@@ -11,33 +11,26 @@ angular.module('WeatherCtrl', []).controller('WeatherController', function($scop
 	$scope.input = document.getElementById('get-location-form');
 	$scope.autocomplete = new google.maps.places.Autocomplete($scope.input);
 
-	$scope.start_time = function() {
-		var tick = function() {
-    		Weather.get_time($scope.unix_time, $scope.lat, $scope.lng)
-			.then(function(data){
-				$scope.location_unix_time = $scope.unix_time + data.data.dstOffset + data.data.rawOffset;
-				$scope.location_unix_date = new Date($scope.location_unix_time * 1000);
-			},
-			function(data){
-				console.log('Error')
-			})
-  		}
-
-  		tick();
-  		$interval(tick, 1000);
-	}
-
 	$scope.get_location = function() {
+		$scope.get_loc();
+		var start = $interval(function(){
+			$scope.get_loc();	
+		}, 10000);
+		
+	};
+
+	$scope.get_loc = function() {
 
 		$scope.lat = $scope.autocomplete.getPlace().geometry.location.lat();
 		$scope.lng = $scope.autocomplete.getPlace().geometry.location.lng();
 		$scope.time_unix = $scope.get_curr_time();
 		console.log($scope.time_unix);
 
-		Weather.get_time($scope.unix_time, $scope.lat, $scope.lng)
+		Weather.get_time($scope.time_unix, $scope.lat, $scope.lng)
 		.then(function(data){
-			$scope.location_unix_time = $scope.unix_time + data.data.dstOffset + data.data.rawOffset;
+			$scope.location_unix_time = $scope.time_unix + data.data.dstOffset + data.data.rawOffset;
 			$scope.location_unix_date = new Date($scope.location_unix_time * 1000);
+
 		},
 		function(data){
 			console.log('Error')
@@ -132,4 +125,4 @@ angular.module('WeatherCtrl', []).controller('WeatherController', function($scop
 	$scope.clear_form = function() {
 		$scope.location_text = '';
 	}
-});
+}]);
