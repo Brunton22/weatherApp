@@ -9,7 +9,7 @@ angular.module('WeatherService', []).factory('Weather', ['$http', function($http
 		        		lat: lat,
 		        		lon: lng,
 		        		//Insert OpenWeather API key here
-		        		APPID: '________________,
+		        		APPID: '____________________',
 		        		units: 'metric'
     				}
 			}
@@ -23,7 +23,7 @@ angular.module('WeatherService', []).factory('Weather', ['$http', function($http
   					location: lat + ',' + lng,
   					timestamp: timestamp,
   					//insert google API key here
-  					key: '___________'
+  					key: '_______________________'
   				}
   			}
   		return $http.get('https://maps.googleapis.com/maps/api/timezone/json?', config);

@@ -1,52 +1,43 @@
 angular.module('WeatherCtrl', []).controller('WeatherController', function($scope,Weather) {
 
-		/*Weather.get()
-			.then(function(data) {
-				$scope.weather = data.data;
-			},
-			function(data){
-				console.log('Error');
-			});*/
-
-	var curr_date = new Date();
-	var curr_date_ms = curr_date.getTime();
-	$scope.unix_time = curr_date_ms / 1000;
-
-	/*var curr_hr = curr_date.getHours();*/
-
-	/*if ( $scope.hour > 18 && $scope.hour < 6 ) {
-		$scope.time_of_day = 'bg-night';
+	$scope.get_curr_time = function() {
+		var curr_date = new Date();
+		var curr_date_ms = curr_date.getTime();
+		$scope.unix_time = curr_date_ms / 1000;
+		return $scope.unix_time;
 	}
-
-	else {
-		$scope.time_of_day = 'bg-day';
-	}*/
 
 	$scope.weather_called = true;
 	$scope.input = document.getElementById('get-location-form');
 	$scope.autocomplete = new google.maps.places.Autocomplete($scope.input);
 
+	$scope.start_time = function() {
+		var tick = function() {
+    		Weather.get_time($scope.unix_time, $scope.lat, $scope.lng)
+			.then(function(data){
+				$scope.location_unix_time = $scope.unix_time + data.data.dstOffset + data.data.rawOffset;
+				$scope.location_unix_date = new Date($scope.location_unix_time * 1000);
+			},
+			function(data){
+				console.log('Error')
+			})
+  		}
+
+  		tick();
+  		$interval(tick, 1000);
+	}
+
 	$scope.get_location = function() {
 
 		$scope.lat = $scope.autocomplete.getPlace().geometry.location.lat();
 		$scope.lng = $scope.autocomplete.getPlace().geometry.location.lng();
+		$scope.time_unix = $scope.get_curr_time();
+		console.log($scope.time_unix);
 
 		Weather.get_time($scope.unix_time, $scope.lat, $scope.lng)
 		.then(function(data){
 			$scope.location_unix_time = $scope.unix_time + data.data.dstOffset + data.data.rawOffset;
 			$scope.location_unix_date = new Date($scope.location_unix_time * 1000);
-			$scope.hours = $scope.location_unix_date.getHours();	
-			$scope.minutes = $scope.location_unix_date.getMinutes();
-			$scope.time = $scope.hours + ':' + $scope.minutes;
-
-			/*if ( ( $scope.hours < 18 ) && ( $scope.hours > 6 ) ) {
-				$scope.time_of_day = 'bg-day';
-			}
-			else {
-				$scope.time_of_day = 'bg-night';
-			};*/
-			console.log($scope.location_unix_date);
-			console.log(data.data);
 		},
 		function(data){
 			console.log('Error')
@@ -58,8 +49,8 @@ angular.module('WeatherCtrl', []).controller('WeatherController', function($scop
 			$scope.rnd_temp = Math.round($scope.temp);
 			$scope.weather = data.data;
 			$scope.weather_icon = $scope.weather.weather[0]['icon'];
-			console.log($scope.weather_icon);
 			$scope.weather_called = false;
+			console.log($scope.weather_icon);
 
 			if ( $scope.weather_icon == '01d' ) {
 				$scope.weather_bg = 'day-bg';
@@ -136,9 +127,6 @@ angular.module('WeatherCtrl', []).controller('WeatherController', function($scop
 		function(data) {
 			console.log('Error');
 		});
-
-		//var loc_lat_long = autocomplete.getPlace().geometry.location;
-		//alert(loc_lat_long);
 	};
 
 	$scope.clear_form = function() {

@@ -41,7 +41,7 @@
 			  		<div class="cloud"></div>
 				</div>
 
-				<div ng-show='weather_icon === "09n" || weather_icon === "09d"' class="icon sun-shower">
+				<div ng-show='(weather_icon === "09n" || weather_icon === "09d")' class="icon sun-shower">
 		  			<div class="cloud"></div>
 		  				<div class="sun">
 		    			<div class="rays"></div>
@@ -49,7 +49,7 @@
 		  			<div class="rain"></div>
 				</div>
 
-				<div ng-show='weather_icon === "11n" || weather_icon === "11d"' class="icon thunder-storm">
+				<div ng-show='(weather_icon === "11n" || weather_icon === "11d")' class="icon thunder-storm">
 			  		<div class="cloud"></div>
 			  		<div class="lightning">
 			    		<div class="bolt"></div>
@@ -57,7 +57,7 @@
 			  		</div>
 				</div>
 
-				<div ng-show='weather_bg === "13n" || weather_bg === "13d"' class="icon flurries">
+				<div ng-show='(weather_icon === "13n" || weather_icon === "13d")' class="icon flurries">
 			  		<div class="cloud"></div>
 			  		<div class="snow">
 			    		<div class="flake"></div>
@@ -65,14 +65,14 @@
 			  		</div>
 				</div>
 
-				<div ng-show='weather_bg === "10n" || weather_bg === "10d"' class="icon rainy">
+				<div ng-show='(weather_icon === "10n" || weather_icon === "10d")' class="icon rainy">
 			  		<div class="cloud"></div>
 			  		<div class="rain"></div>
 				</div>
 			</div>
 			<div class='weather col-xs-9 sarala'>{{ weather.weather[0]['main'] }}</div>
 			<div class='temp col-xs-4 sarala'>{{ rnd_temp }}&deg;C</div>
-			<div class='current_time col-xs-4 sarala'>{{ time }}</div>
+			<div class='current_time col-xs-4 sarala'>{{ location_unix_date | date:'HH:mm' }}</div>
 		</div>
 	</div>
 </div>
