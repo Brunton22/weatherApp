@@ -7,19 +7,12 @@ angular.module('WeatherCtrl', []).controller('WeatherController', ['$scope','$in
 		return $scope.unix_time;
 	}
 
+	$scope.clock_started = false;
 	$scope.weather_called = true;
 	$scope.input = document.getElementById('get-location-form');
 	$scope.autocomplete = new google.maps.places.Autocomplete($scope.input);
 
 	$scope.get_location = function() {
-		$scope.get_loc();
-		var start = $interval(function(){
-			$scope.get_loc();	
-		}, 10000);
-		
-	};
-
-	$scope.get_loc = function() {
 
 		$scope.lat = $scope.autocomplete.getPlace().geometry.location.lat();
 		$scope.lng = $scope.autocomplete.getPlace().geometry.location.lng();
@@ -30,6 +23,68 @@ angular.module('WeatherCtrl', []).controller('WeatherController', ['$scope','$in
 		.then(function(data){
 			$scope.location_unix_time = $scope.time_unix + data.data.dstOffset + data.data.rawOffset;
 			$scope.location_unix_date = new Date($scope.location_unix_time * 1000);
+			$scope.seconds = $scope.location_unix_date.getSeconds();
+			$scope.minutes = $scope.location_unix_date.getMinutes();
+			$scope.hours = $scope.location_unix_date.getHours();
+
+			function add_zero_to_mins() {
+				if ( $scope.minutes.toString().length == 1 ) {
+					console.log('1');
+					$scope.minutes = '0' + $scope.minutes;
+				};
+			}
+
+			function secondTick () {
+				$scope.clock_started = true;
+   				setTimeout(function () {
+   					$scope.$apply(function () {
+	      					$scope.seconds++;
+	      					if ($scope.seconds < 60) {
+	      						console.log($scope.seconds);
+	         						secondTick();
+	      					}
+
+	      					else {
+	      						$scope.seconds = new Date().getSeconds();
+	      						$scope.minutes++;
+	      						console.log('2')
+	      						if ( $scope.minutes < 60 ) {
+	      							console.log($scope.minutes);
+	      							add_zero_to_mins();
+	      							secondTick();
+	      						}
+
+	      						else { 
+	      							console.log('3')
+	      							$scope.minutes = 0;
+								add_zero_to_mins();
+								$scope.hours++;
+	      							if ( $scope.hours < 24 ) { console.log('4')
+	      								secondTick();
+	      							}
+
+	      							else { 
+	      								console.log('5')
+	      								$scope.hours = 0;
+	      								secondTick();
+	      							};
+	      						};
+	      					};
+	      				});
+   				}, 1000);
+			};
+
+			add_zero_to_mins();
+			if ( $scope.clock_started == false ) {
+				secondTick();
+			};
+			/*$interval( function() {
+				while ( $scope.seconds < 60 ) {
+					console.log('hello');
+					$scope.seconds++;
+					console.log($scope.seconds);
+				}
+			}, 1000 );*/
 
 		},
 		function(data){
