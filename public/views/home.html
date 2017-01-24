@@ -44,10 +44,15 @@
 
 				<div ng-show='(weather_icon === "09n" || weather_icon === "09d")' class="icon sun-shower">
 		  			<div class="cloud"></div>
-		  				<div class="sun">
-		    			<div class="rays"></div>
+		  			<div class="sun">
+		    				<div class="rays"></div>
 		  			</div>
 		  			<div class="rain"></div>
+				</div>
+
+				<div ng-show='(weather_icon === "10n" || weather_icon === "10d")' class="icon rainy">
+			  		<div class="cloud"></div>
+			  		<div class="rain"></div>
 				</div>
 
 				<div ng-show='(weather_icon === "11n" || weather_icon === "11d")' class="icon thunder-storm">
@@ -66,12 +71,11 @@
 			  		</div>
 				</div>
 
-				<div ng-show='(weather_icon === "10n" || weather_icon === "10d")' class="icon rainy">
-			  		<div class="cloud"></div>
-			  		<div class="rain"></div>
+				<div ng-show='(weather_icon === "50n" || weather_icon === "50d")' class="icon misty">
+					<div class='mist'></div>
 				</div>
 			</div>
-			<div class='temp col-xs-4 sarala'>{{ rnd_temp }}&deg;C</div>
+			<div class='temp col-xs-5 sarala'>{{ rnd_temp }}&deg;C</div>
 			<div class='current_time col-xs-4 sarala'>{{ hours + ':' + minutes }}</div>
 		</div>
 	</div>
