@@ -3,7 +3,10 @@
 <div id='stars' ng-show='weather_bg == "night-bg"'></div>
 	<div class='container'>
 		<form class='form-inline get_weather_form sarala'>
-			<input ng-click='clear_form()' id='get-location-form' type='text' class='form-control input-lg' ng-model='location_text'>
+			<div ng-class='{"has-error": no_location_error}' class='form-group-lg'>
+					<input ng-click='clear_form()' id='get-location-form' type='text' class='form-control input-lg' ng-model='location_text'>
+					<div class='location_error help-block' ng-show='no_location_error'>Please enter a valid location</div>
+			</div>
 			<button class='btn btn-default input-lg get_weather_btn' type='submit' ng-click='get_location()'>Get Weather</button>
 		</form>
 	</div>
