@@ -89,7 +89,6 @@ angular.module('WeatherCtrl', []).controller('WeatherController', ['$scope','$in
 				$scope.weather = data.data;
 				$scope.weather_icon = $scope.weather.weather[0]['icon'];
 				$scope.weather_called = false;
-				console.log($scope.weather_icon);
 
 				if ( $scope.weather_icon == '01d' ) {
 					$scope.weather_bg = 'day-bg';
