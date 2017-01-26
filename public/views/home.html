@@ -1,7 +1,7 @@
 <div class="container-fluid {{weather_bg}}" >
 <div id='night' ng-show='weather_bg == "night-bg"'></div>
 <div id='stars' ng-show='weather_bg == "night-bg"'></div>
-	<div class='container'>
+	<div class='container get_weather_info_container'>
 		<form class='form-inline get_weather_form sarala'>
 			<div ng-class='{"has-error": no_location_error}' class='form-group-lg'>
 					<input ng-click='clear_form()' id='get-location-form' type='text' class='form-control input-lg' ng-model='location_text'>
@@ -10,7 +10,7 @@
 			<button class='btn btn-default input-lg get_weather_btn' type='submit' ng-click='get_location()'>Get Weather</button>
 		</form>
 	</div>
-	<div class='container'>
+	<div class='container weather_info_container'>
 		<div ng-hide='weather_called'  class='row weather_details'>
 			<div class='weather col-xs-5 sarala'>{{ weather.weather[0]['main'] }}</div>
 			<div class='icon col-xs-4' ng-class='weather_icon'>

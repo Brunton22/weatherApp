@@ -388,11 +388,20 @@ html, body, .container-fluid, .ng-scope {
     background:transparent url(../imgs/stars.png) repeat bottom center;
 }
 
-/* Small devices (tablets, 768px and up) */
-@media (min-width: @screen-sm-min) { ... }
+@media(max-width:767px){}
 
-/* Medium devices (desktops, 992px and up) */
-@media (min-width: @screen-md-min) { ... }
+@media(min-width:768px){
+      .get_weather_info_container {
+            font-size: 20px;
+      }
+}
 
-/* Large devices (large desktops, 1200px and up) */
-@media (min-width: @screen-lg-min) { ... }
+@media(min-width:992px){
+      .weather_info_container {
+            margin-top: 100px;
+      }
+}
+
+@media(min-width:1200px){}
+
+}
