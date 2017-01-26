@@ -23,7 +23,6 @@ angular.module('WeatherCtrl', []).controller('WeatherController', ['$scope','$in
 			$scope.lat = $scope.autocomplete.getPlace().geometry.location.lat();
 			$scope.lng = $scope.autocomplete.getPlace().geometry.location.lng();
 			$scope.time_unix = $scope.get_curr_time();
-			console.log($scope.time_unix);
 
 			Weather.get_time($scope.time_unix, $scope.lat, $scope.lng)
 			.then(function(data){
@@ -35,7 +34,6 @@ angular.module('WeatherCtrl', []).controller('WeatherController', ['$scope','$in
 
 				function add_zero_to_mins() {
 					if ( $scope.minutes.toString().length == 1 ) {
-						console.log('1');
 						$scope.minutes = '0' + $scope.minutes;
 					};
 				}
@@ -46,31 +44,26 @@ angular.module('WeatherCtrl', []).controller('WeatherController', ['$scope','$in
 	   					$scope.$apply(function () {
 		      					$scope.seconds++;
 		      					if ($scope.seconds < 60) {
-		      						console.log($scope.seconds);
 		         						secondTick();
 		      					}
 
 		      					else {
 		      						$scope.seconds = new Date().getSeconds();
 		      						$scope.minutes++;
-		      						console.log('2')
 		      						if ( $scope.minutes < 60 ) {
-		      							console.log($scope.minutes);
 		      							add_zero_to_mins();
 		      							secondTick();
 		      						}
 
 		      						else { 
-		      							console.log('3')
 		      							$scope.minutes = 0;
 									add_zero_to_mins();
 									$scope.hours++;
-		      							if ( $scope.hours < 24 ) { console.log('4')
+		      							if ( $scope.hours < 24 ) {
 		      								secondTick();
 		      							}
 
 		      							else { 
-		      								console.log('5')
 		      								$scope.hours = 0;
 		      								secondTick();
 		      							};
@@ -180,7 +173,6 @@ angular.module('WeatherCtrl', []).controller('WeatherController', ['$scope','$in
 		$scope.location_text = '';
 		
 		if ( $scope.weather_called == false ) {
-			console.log('5');
 			$scope.autocomplete = new google.maps.places.Autocomplete($scope.input);
 		}
 
