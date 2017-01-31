@@ -1,1 +1,0 @@
-angular.module('weatherApp', ['ngRoute', 'appRoutes', 'WeatherCtrl', 'WeatherService']);
