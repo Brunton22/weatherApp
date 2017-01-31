@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="/">
+
+	<title>Weather App</title>
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.min.css"> <!-- custom styles -->
+
+	<!-- JS -->
+	<script src="libs/angular/angular.min.js"></script>
+	<script src="libs/angular-route/angular-route.min.js"></script>
+	<!-- Insert your google API key here -->
+	<!--<script src="https://maps.googleapis.com/maps/api/js?key=____________________&libraries=places"></script>-->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9TvSp0_Cy0ngk-6zfS18bvIax3KVtl7E&libraries=places"></script>
+	<!-- ANGULAR CUSTOM -->
+	<script src="js/controllers/WeatherCtrl.min.js"></script>
+	<script src="js/services/WeatherService.min.js"></script>
+	<script src="js/appRoutes.min.js"></script>
+	<script src="js/app.min.js"></script>
+</head>
+<body ng-app="weatherApp">
+	
+	<!-- HEADER -->
+	<!--<nav class="navbar navbar-inverse">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="/">Stencil: Node and Angular</a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li><a href="/nerds">Nerds</a></li>
+		</ul>
+	</nav>-->
+
+	<!-- ANGULAR DYNAMIC CONTENT -->
+	<div ng-view></div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<div class="container-fluid {{weather_bg}}" >
+<div id='night' ng-show='weather_bg == "night-bg"'></div>
+<div id='stars' ng-show='weather_bg == "night-bg"'></div>
+	<div class='container get_weather_info_container'>
+		<form class='form-inline get_weather_form sarala'>
+			<div ng-class='{"has-error": no_location_error}' class='form-group-lg'>
+					<input ng-click='clear_form()' id='get-location-form' type='text' class='form-control input-lg' ng-model='location_text'>
+					<div class='location_error help-block' ng-show='no_location_error'>Please enter a valid location</div>
+			</div>
+			<button class='btn btn-default input-lg get_weather_btn' type='submit' ng-click='get_location()'>Get Weather</button>
+		</form>
+	</div>
+	<div class='container weather_info_container'>
+		<div ng-hide='weather_called'  class='row weather_details'>
+			<div class='weather col-xs-5 sarala'>{{ weather.weather[0]['main'] }}</div>
+			<div class='icon col-xs-4' ng-class='weather_icon'>
+
+				<div ng-show='weather_icon === "01d"' class="icon sunny">
+			  		<div class="sun">
+			    		<div class="rays"></div>
+			  		</div>
+				</div>
+
+				<div ng-show='weather_icon === "01n"' class="icon sunny">
+			  		<div class="moon"></div>
+				</div>
+
+				<div ng-show='weather_icon === "02d"' class='icon sun-cloudy'>
+					<div class='cloud'></div>
+					<div class='sun'>
+						<div class='rays'></div>	
+					</div>	
+				</div>
+				<div ng-show='weather_icon === "02n"' class='icon sun-cloudy'>
+					<div class='cloud'></div>
+					<div class='moon'></div>	
+				</div>
+
+				<div ng-show='weather_icon === "03n" || weather_icon === "03d"'' class='icon broken-cloudy'>
+					<div class='cloud'></div>
+				</div>
+
+				<div ng-show='(weather_icon === "04n" || weather_icon === "04d")' class="icon cloudy">
+			  		<div class="cloud"></div>
+			  		<div class="cloud"></div>
+				</div>
+
+				<div ng-show='(weather_icon === "09n" || weather_icon === "09d")' class="icon sun-shower">
+		  			<div class="cloud"></div>
+		  			<div class="sun">
+		    				<div class="rays"></div>
+		  			</div>
+		  			<div class="rain"></div>
+				</div>
+
+				<div ng-show='(weather_icon === "10n" || weather_icon === "10d")' class="icon rainy">
+			  		<div class="cloud"></div>
+			  		<div class="rain"></div>
+				</div>
+
+				<div ng-show='(weather_icon === "11n" || weather_icon === "11d")' class="icon thunder-storm">
+			  		<div class="cloud"></div>
+			  		<div class="lightning">
+			    		<div class="bolt"></div>
+			    		<div class="bolt"></div>
+			  		</div>
+				</div>
+
+				<div ng-show='(weather_icon === "13n" || weather_icon === "13d")' class="icon flurries">
+			  		<div class="cloud"></div>
+			  		<div class="snow">
+			    		<div class="flake"></div>
+			    		<div class="flake"></div>
+			  		</div>
+				</div>
+
+				<div ng-show='(weather_icon === "50n" || weather_icon === "50d")' class="icon misty">
+					<div class='mist'></div>
+				</div>
+			</div>
+			<div class='temp col-xs-5 sarala'>{{ rnd_temp }}&deg;C</div>
+			<div class='current_time col-xs-4 sarala'>{{ hours + ':' + minutes }}</div>
+		</div>
+	</div>
+</div>
