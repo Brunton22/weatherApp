@@ -14,15 +14,16 @@ module.exports = function(grunt) {
    				}
  		 	},
  		 	js: {
- 		 		files: ['public/js/**/*.js'],
+ 		 		files: ['prod/js/**/*.js'],
  		 		tasks: ['uglify']
  		 	},
  		 	css: {
- 		 		files: ['public/css/*.css'],
+ 		 		files: ['prod/css/*.css'],
  		 		tasks: ['cssmin']
  		 	},
  		 	views: {
- 		 		files: ['public/index.html', 'public/views/*.html']
+ 		 		files: ['prod/index.html', 'prod/views/*.html'],
+                      tasks: ['htmlmin']
  		 	}
  		},
 
@@ -38,7 +39,7 @@ module.exports = function(grunt) {
     			target: {
       				files: [{
       					expand: true,
-      					cwd: 'public/js/',
+      					cwd: 'prod/js/',
       					src: '**/*.js',
       					dest: 'build/public/js/',
       					ext: '.min.js'
@@ -50,7 +51,7 @@ module.exports = function(grunt) {
   			target: {
   				files: [{
   					expand: true,
-  					cwd: 'public/css',
+  					cwd: 'prod/css',
   					src: '*.css',
   					dest: 'build/public/css/',
   					ext: '.min.css'
@@ -58,22 +59,28 @@ module.exports = function(grunt) {
   			}
   		},
 
-  		copy: {
-  			main: {
-    				files: [{
-    					expand: true, 
-    					src: ['public/imgs/*', 'public/libs/**', 'public/views/**', 'public/index.html'], 
-    					dest: 'build/'
-      				}]
-      			}
-      		}
+          htmlmin: {                              
+                dist: {                                
+                      options: {                                 
+                            removeComments: true,
+                            collapseWhitespace: true
+                      },
+                      files: [{
+                            expand: true,
+                            cwd: 'prod/',
+                            src: '**/*.html',
+                            dest: 'build/public/',
+                            ext: '.html'
+                      }]
+                }
+          }
 	});
 
 	grunt.loadNpmTasks('grunt-express-server');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.registerTask('default', ['copy', 'express', 'watch']);
-	grunt.registerTask('start-min', ['uglify', 'cssmin', 'express', 'watch']);
+	grunt.loadNpmTasks('grunt-contrib-htmlmin');
+	grunt.registerTask('default', ['express', 'watch']);
+	grunt.registerTask('start-min', ['uglify', 'cssmin', 'htmlmin', 'express', 'watch']);
 };
