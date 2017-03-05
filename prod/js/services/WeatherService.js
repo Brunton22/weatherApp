@@ -28,5 +28,5 @@ angular.module('WeatherService', []).factory('Weather', ['$http', function($http
   			}
   		return $http.get('https://maps.googleapis.com/maps/api/timezone/json?', config);
   		}
-	}      
+	}
 }]);
